@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bionic - Enhanced Reading Experience</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Space+Mono:ital,wght@1,700&display=swap" rel="stylesheet">
+    <style>
+    
+        :root {
+            --site-bg: #101010;
+            --site-dark: #000000;
+            --site-text: #f0f0f0;
+            --site-accent: #3b82f6;
+            --site-gray: #9ca3af;
+            --site-light-gray: #1e1e1e;
+            --site-border: #2d2d2d;
+            --site-input-bg: #1a1a1a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.5;
+            font-weight: 400;
+            background-color: var(--site-bg);
+            color: var(--site-text);
+        }
+        
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0 30px;
+        }
+        
+        h1 {
+            font-family: 'Space Mono', monospace;
+            font-size: 48px;
+            line-height: 1.1;
+            font-weight: 700;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        
+        .tagline {
+            font-size: 24px;
+            line-height: 1.2;
+            font-weight: 400;
+            color: var(--site-gray);
+            margin-bottom: 30px;
+        }
+        
+        .description {
+            font-size: 17px;
+            line-height: 1.5;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto 50px;
+            color: var(--site-gray);
+        }
+        
+        .rules {
+            background-color: white;
+            border-radius: 18px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .rules h2 {
+            font-size: 28px;
+            line-height: 1.14286;
+            font-weight: 600;
+            letter-spacing: 0.007em;
+            margin-bottom: 20px;
+        }
+        
+        .rules ul {
+            padding-left: 22px;
+            margin-bottom: 20px;
+        }
+        
+        .rules li {
+            font-size: 17px;
+            line-height: 1.47059;
+            margin-bottom: 10px;
+        }
+        
+        .highlight {
+            font-size: 17px;
+            line-height: 1.47059;
+            color: var(--apple-gray);
+        }
+        
+        .app-container {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+        
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 40px;
+            }
+            
+            .tagline {
+                font-size: 21px;
+            }
+        }
+        
+        .text-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            font-family: 'Space Mono', monospace;
+            font-size: 17px;
+            font-weight: 700;
+            font-style: italic;
+            margin-bottom: 10px;
+            color: var(--site-text);
+        }
+        
+        textarea, .output-container {
+            width: 100%;
+            min-height: 300px;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 15px;
+            line-height: 1.5;
+            font-family: 'Roboto', sans-serif;
+            border: 1px solid var(--site-border);
+            background-color: var(--site-input-bg);
+            color: var(--site-text);
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--site-accent);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+        }
+        
+        .output-container {
+            overflow-y: auto;
+            word-wrap: break-word;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 12px 22px;
+            border: none;
+            border-radius: 980px;
+            font-size: 16px;
+            line-height: 1.2;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        button#convert-btn {
+            background-color: var(--site-accent);
+            color: white;
+        }
+        
+        button#convert-btn:hover {
+            background-color: #2563eb;
+        }
+        
+        button#clear-btn, button#copy-btn {
+            background-color: var(--site-light-gray);
+            color: var(--site-text);
+        }
+        
+        button#clear-btn:hover, button#copy-btn:hover {
+            background-color: #2a2a2a;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 0 40px;
+            color: var(--site-gray);
+            font-size: 12px;
+            line-height: 1.33341;
+            font-weight: 400;
+            border-top: 1px solid var(--site-border);
+            margin-top: 40px;
+        }
+        
+        footer p {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        
+        .about-btn {
+            background-color: transparent;
+            color: var(--site-accent);
+            font-size: 14px;
+            padding: 8px 16px;
+            border: 1px solid var(--site-accent);
+            border-radius: 980px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+        
+        .about-btn:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        .about-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            text-align: left;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0;
+        }
+        
+        .about-content.show {
+            max-height: 1000px;
+            opacity: 1;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: var(--site-light-gray);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .about-content h3 {
+            font-family: 'Space Mono', monospace;
+            font-size: 20px;
+            font-weight: 700;
+            font-style: italic;
+            margin-bottom: 16px;
+            color: var(--site-text);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Bionic</h1>
+            <p class="tagline">Enhanced reading experience.</p>
+            <p class="description">Bionic automatically formats text to improve reading speed and focus by highlighting the beginnings of words — making it easier to scan and comprehend content quickly.</p>
+        </header>
+        
+
+        <div class="app-container">
+            <div class="text-area">
+                <label for="input-text">Input Text</label>
+                <textarea id="input-text" placeholder="Paste your text here..."></textarea>
+                <div class="buttons">
+                    <button id="convert-btn">Bionicize Text</button>
+                    <button id="clear-btn">Clear</button>
+                </div>
+            </div>
+            
+            <div class="text-area">
+                <label for="output-text">Boldified Output</label>
+                <div id="output-text" class="output-container"></div>
+                <div class="buttons">
+                    <button id="copy-btn">Copy HTML</button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <button id="about-btn" class="about-btn">About Bionic Reading®</button>
+            <div id="about-content" class="about-content">
+                <h3>About Bionic Reading®</h3>
+                <p>Bionic Reading® is a unique reading method developed by Swiss typographic designer Renato Casutt. This technique emphasizes the initial letters of words by bolding them, creating artificial fixation points that guide the reader's eyes through the text more efficiently. By highlighting these key portions, Bionic Reading® leverages the brain's ability to recognize and process familiar word patterns swiftly, potentially enhancing reading speed and comprehension.</p>
+                <p>This method has garnered attention for its potential benefits, particularly among individuals with reading difficulties. For instance, some users have reported that Bionic Reading® aids in maintaining focus and improving reading flow.</p>
+                <p>This website is an independent tool designed to make text formatting in this style accessible. It is not created by or affiliated with Renato Casutt, and has no connection to the official Bionic Reading® method or platforms.</p>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputText = document.getElementById('input-text');
+            const outputText = document.getElementById('output-text');
+            const convertBtn = document.getElementById('convert-btn');
+            const clearBtn = document.getElementById('clear-btn');
+            const copyBtn = document.getElementById('copy-btn');
+            
+            // Function to boldify text based on word length
+            function boldifyText(text) {
+                if (!text) return '';
+                
+                // Split the text into words
+                const words = text.split(/(\s+)/);
+                
+                // Process each word
+                const boldifiedWords = words.map(word => {
+                    // Skip processing for whitespace
+                    if (/^\s+$/.test(word)) return word;
+                    
+                    // Determine how many characters to bold based on word length
+                    let boldLength;
+                    if (word.length <= 4) {
+                        boldLength = 2;
+                    } else if (word.length <= 7) {
+                        boldLength = 3;
+                    } else {
+                        boldLength = 4;
+                    }
+                    
+                    // Handle words shorter than the bold length
+                    boldLength = Math.min(boldLength, word.length);
+                    
+                    // Bold the first characters
+                    if (boldLength > 0) {
+                        return `<strong>${word.substring(0, boldLength)}</strong>${word.substring(boldLength)}`;
+                    } else {
+                        return word;
+                    }
+                });
+                
+                // Join the words back together
+                return boldifiedWords.join('');
+            }
+            
+            // Convert button click handler
+            convertBtn.addEventListener('click', function() {
+                const text = inputText.value;
+                const boldified = boldifyText(text);
+                
+                // Replace newlines with <br> tags for HTML display
+                outputText.innerHTML = boldified.replace(/\n/g, '<br>');
+            });
+            
+            // Clear button click handler
+            clearBtn.addEventListener('click', function() {
+                inputText.value = '';
+                outputText.innerHTML = '';
+            });
+            
+            // Copy button click handler
+            copyBtn.addEventListener('click', function() {
+                // Get the HTML content
+                const htmlContent = outputText.innerHTML;
+                
+                // Create a temporary textarea to copy from
+                const tempTextarea = document.createElement('textarea');
+                tempTextarea.value = htmlContent;
+                document.body.appendChild(tempTextarea);
+                
+                // Select and copy
+                tempTextarea.select();
+                document.execCommand('copy');
+                
+                // Remove the temporary element
+                document.body.removeChild(tempTextarea);
+                
+                // Provide feedback
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Copied';
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                }, 2000);
+            });
+            
+            // Add an example if the input is empty
+            if (inputText.value.trim() === '') {
+                inputText.value = "Bionic is a powerful and user-friendly tool designed to enhance your reading experience. By automatically bolding the first few characters of words based on their length, Bionic makes it easier to quickly scan and comprehend large blocks of text.";
+            }
+            
+            // About button functionality
+            const aboutBtn = document.getElementById('about-btn');
+            const aboutContent = document.getElementById('about-content');
+            
+            aboutBtn.addEventListener('click', function() {
+                aboutContent.classList.toggle('show');
+                
+                if (aboutContent.classList.contains('show')) {
+                    aboutBtn.textContent = "Hide About Bionic Reading®";
+                } else {
+                    aboutBtn.textContent = "About Bionic Reading®";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
